@@ -135,6 +135,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	//delete an item from the items database
 	public void deleteItem(int itemID){
 		SQLiteDatabase db = this.getWritableDatabase();
+		Log.d("Database", "Deleteing "+Integer.toString(itemID));
 		db.delete(TABLE_ITEMS, KEY_ID + " = ?", new String[] {String.valueOf(itemID)});
 		db.close();
 	}

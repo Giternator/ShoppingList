@@ -3,13 +3,14 @@ package scott.macewan.shoppinglist;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
+import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
@@ -76,6 +77,19 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 						
 			}
 		});
+		/*
+		convertView.setOnCreateContextMenuListener(new OnCreateContextMenuListener(){
+			
+			public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo){
+				menu.setHeaderTitle(name);
+				menu.add(0,v.getId(), 0 , "Delete");
+				menu.add(0,v.getId(), 0 , "Cancel");				
+			}
+			
+			
+		});
+	}
+		
 		convertView.setOnLongClickListener(new OnLongClickListener(){
 			public boolean onLongClick(View v){
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -96,6 +110,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 				return true;
 			}
 		});
+		*/
 		return convertView;
 	}
 
