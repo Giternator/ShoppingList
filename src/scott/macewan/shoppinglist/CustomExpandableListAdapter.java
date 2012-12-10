@@ -3,10 +3,13 @@ package scott.macewan.shoppinglist;
 import java.util.List;
 
 import android.app.Activity;
-import android.util.Log;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
@@ -48,30 +51,51 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 		if (convertView == null) {
 			convertView = minflater.inflate(R.layout.childrow, null);
 		}
-		Log.d("ListView","Creating Children");
+		//Log.d("ListView","Creating Children");
 		text = (TextView) convertView.findViewById(R.id.childTextView);
-		text.setText(tempChild.get(childPosition).getName());
-		final DatabaseHandler db = new DatabaseHandler(convertView.getContext());
-		final boolean selected = db.itemSelected(tempChild.get(childPosition).getCategoryId());
-		final int position = childPosition;
+		final String name =tempChild.get(childPosition).getName();
+		text.setText(name);
+		final Context context = convertView.getContext();
+		final DatabaseHandler db = new DatabaseHandler(context);
+		final boolean selected = db.itemSelected(tempChild.get(childPosition).getId());
+		final int itemID = tempChild.get(childPosition).getId();
 		final CheckBox checkbox = (CheckBox) convertView.findViewById(R.id.childSelected);
 		checkbox.setChecked(selected);
 		convertView.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				/*
-				if(checkbox.isActivated()){
-					checkbox.setActivated(false);
-					db.setSelected(tempChild.get(position).getId(), false);
+				if(checkbox.isChecked()){
+					checkbox.setChecked(false);
+					//Log.d("Adapter","Saving Child State");
+					db.setSelected(itemID, false);
 				}else{
-					checkbox.setActivated(true);
-					db.setSelected(tempChild.get(position).getId(), true);
+					checkbox.setChecked(true);
+					db.setSelected(itemID, true);
 				}
-			*/
-				Toast.makeText(activity, tempChild.get(position).getName(),
+				Toast.makeText(activity, name,
 						Toast.LENGTH_SHORT).show();
 						
 			}
-		});		
+		});
+		convertView.setOnLongClickListener(new OnLongClickListener(){
+			public boolean onLongClick(View v){
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+				alertDialogBuilder.setTitle("Delete");
+				alertDialogBuilder.setMessage("Are you sure you wish to delete" + name);
+				alertDialogBuilder.setCancelable(true);
+				alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					
+					public void onClick(DialogInterface dialog, int which) {
+						db.deleteItem(itemID);						
+					}
+				});
+				alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which){
+						dialog.cancel();
+					}
+				});
+				return true;
+			}
+		});
 		return convertView;
 	}
 
@@ -102,7 +126,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 	}
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
-		Log.d("ListView","Creating Parent");
+		//Log.d("ListView","Creating Parent");
 		if (convertView == null) {
 			convertView = minflater.inflate(R.layout.parentrow, null);
 		}

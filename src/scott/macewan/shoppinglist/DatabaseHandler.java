@@ -107,7 +107,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		String selectQuery = "SELECT * FROM " + TABLE_ITEMS + " WHERE " + KEY_CATEGORY_ID + " = " + category_id;
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
-		Log.d("Reading", Integer.toString(cursor.getCount()));
+		//Log.d("Reading", Integer.toString(cursor.getCount()));
 		if(cursor.moveToFirst()){
 			do{
 				Item item = new Item();
@@ -133,9 +133,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	
 	//delete an item from the items database
-	public void deleteItem(Item item){
+	public void deleteItem(int itemID){
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(TABLE_ITEMS, KEY_ID + " = ?", new String[] {String.valueOf(item.getId()) });
+		db.delete(TABLE_ITEMS, KEY_ID + " = ?", new String[] {String.valueOf(itemID)});
 		db.close();
 	}
 	
@@ -145,18 +145,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		String selectQuery="SELECT " + KEY_SELECTED + " FROM " + TABLE_ITEMS + " WHERE " + KEY_ID + " = " + itemID;
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
+		//Log.d("Cursor", Integer.toString(cursor.getCount()));
 		if(cursor.moveToFirst()){
 			int selectedInt = Integer.parseInt(cursor.getString(0));
 			if(selectedInt != 0){
 				selected = true;
 			}
 		}
+		//Log.d("Database", itemID + "  =  "+ Boolean.toString(selected));
 		db.close();
 		return selected;
 	}
 	
 	//set the selected status of the item on the list
 	public void setSelected(int itemID, boolean selected){
+		Log.d("Database", "Updating " + itemID + "  =  "+ Boolean.toString(selected));
 		int selectedInt;
 		if(selected){
 			selectedInt = 1;

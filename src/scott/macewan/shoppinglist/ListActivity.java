@@ -35,7 +35,7 @@ public class ListActivity extends ExpandableListActivity  implements OnGroupExpa
 		DatabaseHandler db = new DatabaseHandler(this);
 		
 		List<Category> categoryNames = db.getCategorys();
-		Log.d("Items", Integer.toString(categoryNames.size()));
+		//Log.d("Items", Integer.toString(categoryNames.size()));
 		ExpandableListView shoppingList = (ExpandableListView) findViewById(android.R.id.list);
 		shoppingList.setClickable(true);
 		ArrayList<List<Item>> childItems = new ArrayList<List<Item>>();
