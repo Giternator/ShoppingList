@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <EditText
+        android:id="@+id/searchTerms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search_recipe_hint"
+        android:layout_marginTop="15sp" />
+    <Button
+        android:id="@+id/search"
+        android:text="@string/search"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/searchTerms"
+        android:layout_marginTop="15sp" />
+    <TextView
+        android:id="@+id/yummlyNod"
+        android:text="@string/yummly_nod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search"
+        android:layout_marginTop="16sp"
+        android:textSize="10sp"
+        android:gravity="center"/>
+ </RelativeLayout>

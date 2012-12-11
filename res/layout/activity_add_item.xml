@@ -21,4 +21,18 @@
 	    android:layout_height="wrap_content"
 	    android:layout_below="@+id/category"
 	    android:text="@string/add_item"/>
+	<TextView
+	    android:id="@+id/or"
+	    android:layout_height="wrap_content"
+	    android:layout_width="fill_parent"
+	    android:text="@string/or"
+	    android:textSize="25sp"
+	    android:layout_below="@+id/create_item"
+	    android:gravity="center_horizontal"/>
+	<Button
+	    android:id="@+id/search_recipe"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/or"
+	    android:text="@string/search_for_recipe"/>
 </RelativeLayout>

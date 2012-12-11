@@ -2,22 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >  
+    android:orientation="vertical" >
+    <CheckBox 
+	    android:id="@+id/childSelected"
+	    android:layout_marginLeft="25dp"
+	    android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"/> 
 	<TextView
 		android:id="@+id/childTextView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="@string/hello_world"
 		android:padding="10dp"
-		android:layout_marginLeft="25dp" />
-	<CheckBox 
-	    android:id="@+id/childSelected"
+		android:textSize="10sp"	
+		android:layout_toRightOf="@+id/childSelected" />
+
+	<Button
+	    android:id="@+id/childDelete"
 	    android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentRight="true"
-		android:layout_toRightOf="@+id/childTextView"/>
+	    android:layout_height="30sp"
+	    android:textSize="10sp"
+	    android:text="@string/delete"
+	    android:layout_alignParentRight="true" />
+
     <View
        	 android:layout_width="match_parent"
-       	 android:layout_height="1dp"
-       	 android:background="@android:color/white" />
+       	 android:layout_height="1dp"      	 
+       	 android:background="@android:color/black" />
 </RelativeLayout>

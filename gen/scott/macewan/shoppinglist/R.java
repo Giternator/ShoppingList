@@ -21,26 +21,33 @@ public final class R {
         public static final int plusminus=0x7f020004;
     }
     public static final class id {
-        public static final int add_items=0x7f080003;
-        public static final int app_name=0x7f080005;
-        public static final int begin=0x7f080007;
+        public static final int add_items=0x7f080005;
+        public static final int app_name=0x7f080007;
+        public static final int begin=0x7f080009;
         public static final int category=0x7f080001;
-        public static final int childSelected=0x7f080009;
-        public static final int childTextView=0x7f080008;
+        public static final int childDelete=0x7f08000f;
+        public static final int childSelected=0x7f08000d;
+        public static final int childTextView=0x7f08000e;
         public static final int create_item=0x7f080002;
-        public static final int created_by=0x7f080006;
+        public static final int created_by=0x7f080008;
         public static final int item_name=0x7f080000;
-        public static final int menu_settings=0x7f08000b;
-        public static final int parentTextView=0x7f08000a;
-        public static final int scroller=0x7f080004;
+        public static final int menu_settings=0x7f080011;
+        public static final int or=0x7f080003;
+        public static final int parentTextView=0x7f080010;
+        public static final int scroller=0x7f080006;
+        public static final int search=0x7f08000b;
+        public static final int searchTerms=0x7f08000a;
+        public static final int search_recipe=0x7f080004;
+        public static final int yummlyNod=0x7f08000c;
     }
     public static final class layout {
         public static final int activity_add_item=0x7f030000;
         public static final int activity_list=0x7f030001;
         public static final int activity_main=0x7f030002;
-        public static final int category_list=0x7f030003;
-        public static final int childrow=0x7f030004;
-        public static final int parentrow=0x7f030005;
+        public static final int activity_search_recipe=0x7f030003;
+        public static final int category_list=0x7f030004;
+        public static final int childrow=0x7f030005;
+        public static final int parentrow=0x7f030006;
     }
     public static final class menu {
         public static final int activity_main=0x7f070000;
@@ -55,16 +62,23 @@ public final class R {
         public static final int create=0x7f050007;
         public static final int created_by=0x7f050004;
         public static final int dairy=0x7f05000e;
+        public static final int delete=0x7f050013;
         public static final int enter_category_name=0x7f050006;
         public static final int fruit=0x7f05000a;
         public static final int hello_world=0x7f050001;
         public static final int menu_settings=0x7f050002;
+        public static final int or=0x7f050019;
         public static final int other=0x7f05000f;
         public static final int protein=0x7f05000c;
+        public static final int search=0x7f050016;
+        public static final int search_for_recipe=0x7f050018;
+        public static final int search_recipe_hint=0x7f050015;
         public static final int title_activity_main=0x7f050003;
         public static final int title_add_item_activity=0x7f050012;
         public static final int title_list_activity=0x7f050011;
+        public static final int title_search_recipe=0x7f050014;
         public static final int vegetable=0x7f05000b;
+        public static final int yummly_nod=0x7f050017;
     }
     public static final class style {
         public static final int AppTheme=0x7f060000;

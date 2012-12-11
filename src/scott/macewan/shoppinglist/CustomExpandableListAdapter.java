@@ -3,21 +3,21 @@ package scott.macewan.shoppinglist;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 	
@@ -47,12 +47,17 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 	}
 
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+		//get the current child to populate view
 		tempChild =  (List<Item>) childItems.get(groupPosition);
+		Log.d("ListView","Init: "+Integer.toString(tempChild.size()));
+		Log.d("ListView","Group Position: "+Integer.toString(groupPosition));
 		TextView text = null;
+		//if not infalted then inflate
 		if (convertView == null) {
 			convertView = minflater.inflate(R.layout.childrow, null);
 		}
 		//Log.d("ListView","Creating Children");
+		
 		text = (TextView) convertView.findViewById(R.id.childTextView);
 		final String name =tempChild.get(childPosition).getName();
 		text.setText(name);
@@ -60,46 +65,38 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 		final DatabaseHandler db = new DatabaseHandler(context);
 		final boolean selected = db.itemSelected(tempChild.get(childPosition).getId());
 		final int itemID = tempChild.get(childPosition).getId();
-		final CheckBox checkbox = (CheckBox) convertView.findViewById(R.id.childSelected);
+		CheckBox checkbox = (CheckBox) convertView.findViewById(R.id.childSelected);
 		checkbox.setChecked(selected);
-		convertView.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				if(checkbox.isChecked()){
-					checkbox.setChecked(false);
-					//Log.d("Adapter","Saving Child State");
-					db.setSelected(itemID, false);
+		checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				if(isChecked){
+					db.setSelected(itemID,true);
 				}else{
-					checkbox.setChecked(true);
-					db.setSelected(itemID, true);
+					db.setSelected(itemID, false);
 				}
-				Toast.makeText(activity, name,
-						Toast.LENGTH_SHORT).show();
-						
+				
 			}
 		});
-		/*
-		convertView.setOnCreateContextMenuListener(new OnCreateContextMenuListener(){
-			
-			public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo){
-				menu.setHeaderTitle(name);
-				menu.add(0,v.getId(), 0 , "Delete");
-				menu.add(0,v.getId(), 0 , "Cancel");				
-			}
-			
-			
-		});
-	}
-		
-		convertView.setOnLongClickListener(new OnLongClickListener(){
-			public boolean onLongClick(View v){
+		//variables for deletion
+		final int tempChildPosition = childPosition;
+		final int tempGroupPosition = groupPosition;
+		final List<Item> currentItems = tempChild;
+		Button button = (Button) convertView.findViewById(R.id.childDelete);
+		button.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v){
+				//Log.d("ListView","Attempting Delete");
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 				alertDialogBuilder.setTitle("Delete");
-				alertDialogBuilder.setMessage("Are you sure you wish to delete" + name);
+				alertDialogBuilder.setMessage("Are you sure you wish to delete " + name);
 				alertDialogBuilder.setCancelable(true);
 				alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 					
 					public void onClick(DialogInterface dialog, int which) {
-						db.deleteItem(itemID);						
+						db.deleteItem(itemID);
+						currentItems.remove(tempChildPosition);
+						childItems.set(tempGroupPosition, currentItems);
+						notifyDataSetChanged();
 					}
 				});
 				alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -107,10 +104,9 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 						dialog.cancel();
 					}
 				});
-				return true;
+				alertDialogBuilder.show();
 			}
 		});
-		*/
 		return convertView;
 	}
 

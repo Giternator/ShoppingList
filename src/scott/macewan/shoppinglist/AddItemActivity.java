@@ -56,6 +56,14 @@ public class AddItemActivity extends Activity {
 				startActivity(newScreen);
 			}
 		});
+        
+        Button searchRecipeBut = (Button) findViewById(R.id.search_recipe);
+        searchRecipeBut.setOnClickListener(new View.OnClickListener(){
+        	public void onClick(View v){
+        		Intent newScreen = new Intent(getApplicationContext(), SearchRecipeActivity.class);
+        		startActivity(newScreen);
+        	}
+        });
 	}
 	
 	private int categoryId(String category){
