@@ -70,7 +70,8 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 		checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				if(isChecked){
+				boolean selected = db.itemSelected(itemID);
+				if(!selected){
 					db.setSelected(itemID,true);
 				}else{
 					db.setSelected(itemID, false);
@@ -97,11 +98,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 						db.deleteItem(itemID);
 						currentItems.remove(tempChildPosition);
 						if(currentItems.size()<1 && categoryId > 6){
-							//childItems.remove(tempGroupPosition);
+							removeGroup(tempGroupPosition);
 							db.deleteCategory(categoryId);
 						}
-						childItems.set(tempGroupPosition, currentItems);
-						notifyDataSetChanged();
+						//childItems.set(tempGroupPosition, currentItems);
+						//notifyDataSetChanged();
 					}
 				});
 				alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -142,7 +143,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 	}
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
-		//Log.d("ListView","Creating Parent");
+		/*Log.d("ListView","Creating Parent");
+		if(childItems.get(groupPosition).size() < 1 && categories.get(groupPosition).getId() > 6){
+			return convertView;
+		}
+		*/
 		if (convertView == null) {
 			convertView = minflater.inflate(R.layout.parentrow, null);
 		}
@@ -160,6 +165,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
+	}
+	
+	public void removeGroup(int groupPosition){
+		categories.remove(groupPosition);
+		notifyDataSetChanged();
 	}
 
 }
