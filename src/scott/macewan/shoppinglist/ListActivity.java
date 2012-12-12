@@ -44,8 +44,17 @@ public class ListActivity extends ExpandableListActivity  implements OnGroupExpa
 			//Log.d("Child Items",Integer.toString(items.size()));
 			childItems.add(items);
 		}
-		CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(categoryNames, childItems);
+		
+		final CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(categoryNames, childItems);
 		adapter.setInflater((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE),	this);
-		getExpandableListView().setAdapter(adapter);		
+		getExpandableListView().setAdapter(adapter);
+		Button clearBut = (Button) findViewById(R.id.remove_items);
+		final Context context = this;
+		clearBut.setOnClickListener(new View.OnClickListener(){
+			public void onClick(View v) {
+				adapter.removeAll(context);
+				//adapter.removeAll(context);
+			}			
+		});
 	}
 }

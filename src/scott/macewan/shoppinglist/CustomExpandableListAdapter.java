@@ -161,9 +161,28 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 		return true;
 	}
 	
+	public void removeChild(int groupPosition){
+		childItems.get(groupPosition).remove(0);
+		notifyDataSetChanged();
+	}
 	public void removeGroup(int groupPosition){
 		categories.remove(groupPosition);
 		notifyDataSetChanged();
+	}
+	
+	public void removeAll(Context context){
+		DatabaseHandler db = new DatabaseHandler(context);
+		for(int i = 0; i < categories.size(); i++){
+			while(childItems.get(i).size() > 0){
+				db.deleteItem(childItems.get(i).get(0).getId());
+				removeChild(i);
+			}
+			if(categories.get(i).getId()>6){
+				db.deleteCategory(categories.get(i).getId());
+				removeGroup(i);
+			}
+			notifyDataSetChanged();
+		}
 	}
 
 }

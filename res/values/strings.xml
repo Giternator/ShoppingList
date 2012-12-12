@@ -29,5 +29,6 @@
     <string name="recipe_title">Recipe Name</string>
     <string name="recipe_ingredients">Ingredients</string>
     <string name="add_recipe">Add Recipe</string>
+    <string name="clear_list">Clear List</string>
 
 </resources>
