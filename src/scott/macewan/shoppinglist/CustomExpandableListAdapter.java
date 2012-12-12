@@ -6,7 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
+//import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +14,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -49,8 +47,8 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 		//get the current child to populate view
 		tempChild =  (List<Item>) childItems.get(groupPosition);
-		Log.d("ListView","Init: "+Integer.toString(tempChild.size()));
-		Log.d("ListView","Group Position: "+Integer.toString(groupPosition));
+		//Log.d("ListView","Init: "+Integer.toString(tempChild.size()));
+		//Log.d("ListView","Group Position: "+Integer.toString(groupPosition));
 		TextView text = null;
 		//if not infalted then inflate
 		if (convertView == null) {
@@ -63,20 +61,20 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 		text.setText(name);
 		final Context context = convertView.getContext();
 		final DatabaseHandler db = new DatabaseHandler(context);
-		final boolean selected = db.itemSelected(tempChild.get(childPosition).getId());
+		boolean selected = db.itemSelected(tempChild.get(childPosition).getId());
 		final int itemID = tempChild.get(childPosition).getId();
-		CheckBox checkbox = (CheckBox) convertView.findViewById(R.id.childSelected);
+		final CheckBox checkbox = (CheckBox) convertView.findViewById(R.id.childSelected);
 		checkbox.setChecked(selected);
-		checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
+		checkbox.setOnClickListener(new View.OnClickListener(){
+			public void onClick(View v) {
 				boolean selected = db.itemSelected(itemID);
 				if(!selected){
+					checkbox.setSelected(true);
 					db.setSelected(itemID,true);
 				}else{
+					checkbox.setSelected(true);
 					db.setSelected(itemID, false);
 				}
-				
 			}
 		});
 		//variables for deletion
@@ -101,8 +99,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 							removeGroup(tempGroupPosition);
 							db.deleteCategory(categoryId);
 						}
-						//childItems.set(tempGroupPosition, currentItems);
-						//notifyDataSetChanged();
+						notifyDataSetChanged();
 					}
 				});
 				alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -144,9 +141,6 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
 		/*Log.d("ListView","Creating Parent");
-		if(childItems.get(groupPosition).size() < 1 && categories.get(groupPosition).getId() > 6){
-			return convertView;
-		}
 		*/
 		if (convertView == null) {
 			convertView = minflater.inflate(R.layout.parentrow, null);
