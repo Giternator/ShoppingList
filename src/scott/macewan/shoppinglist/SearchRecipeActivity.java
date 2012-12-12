@@ -21,16 +21,17 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
-//import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+//import android.content.res.Resources;
 
 public class SearchRecipeActivity extends Activity {
 	private TextView searchStatus;
@@ -63,6 +64,8 @@ public class SearchRecipeActivity extends Activity {
 				}else{
 					SearchRecipeHandler recipeHandler = new SearchRecipeHandler(activityContext);
 					recipeHandler.execute(new String[]{searchStr});
+					InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); 
+					inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 				}				
 			}        	
         });
@@ -75,6 +78,9 @@ public class SearchRecipeActivity extends Activity {
 			this.context = context;
 		}
 		
+		protected void onPreExecute(){
+			searchStatus.setText("Searching");
+		}
 		
 		@Override
 		protected ArrayList<Recipe> doInBackground(String... params) {

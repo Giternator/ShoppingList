@@ -23,7 +23,7 @@
     <string name="title_search_recipe">Search Recipes</string>
     <string name="search_recipe_hint">Type recipe search &#8230;</string>
     <string name="search">Search</string>
-    <string name="yummly_nod">Recipe search uses Yummly Search API</string>
+    <string name="yummly_nod">Recipe search uses Recipe Puppy Search API</string>
     <string name="search_for_recipe">Search For a Recipe</string>
     <string name="or">OR</string>
     <string name="recipe_title">Recipe Name</string>
