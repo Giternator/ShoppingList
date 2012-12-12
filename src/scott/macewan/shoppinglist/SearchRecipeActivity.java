@@ -59,6 +59,7 @@ public class SearchRecipeActivity extends Activity {
 				boolean valid = searchStr.matches("^[a-zA-Z\\s]+$");
 				if(!valid){
 					Toast.makeText(getApplicationContext(), "Please type a valid search", Toast.LENGTH_SHORT).show();
+					searchTerms.setText("");
 				}else{
 					SearchRecipeHandler recipeHandler = new SearchRecipeHandler(activityContext);
 					recipeHandler.execute(new String[]{searchStr});
