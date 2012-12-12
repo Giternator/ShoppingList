@@ -3,8 +3,10 @@ package scott.macewan.shoppinglist;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ExpandableListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 //import android.util.Log;
@@ -52,7 +54,22 @@ public class ListActivity extends ExpandableListActivity  implements OnGroupExpa
 		final Context context = this;
 		clearBut.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
-				adapter.removeAll(context);
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+				alertDialogBuilder.setTitle("Delete");
+				alertDialogBuilder.setMessage("Are you sure you wish to delete the list?");
+				alertDialogBuilder.setCancelable(true);
+				alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {					
+					public void onClick(DialogInterface dialog, int which) {
+						adapter.removeAll(context);
+					}
+				});
+				alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which){
+						dialog.cancel();
+					}
+				});
+				alertDialogBuilder.show();
+				//adapter.removeAll(context);
 				//adapter.removeAll(context);
 			}			
 		});
