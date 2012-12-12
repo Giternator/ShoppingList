@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
+//import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,9 +55,10 @@ public class SearchRecipeActivity extends Activity {
 			public void onClick(View v) {
 				TextView searchTerms = (TextView) findViewById(R.id.searchTerms);
 				String searchStr = searchTerms.getText().toString();
-				Resources res = getResources();
-				if(searchStr == res.getString(R.string.search_recipe_hint)){
-					Toast.makeText(getApplicationContext(), "Please type a search", Toast.LENGTH_SHORT).show();
+				//Resources res = getResources();
+				boolean valid = searchStr.matches("^[a-zA-Z\\s]+$");
+				if(!valid){
+					Toast.makeText(getApplicationContext(), "Please type a valid search", Toast.LENGTH_SHORT).show();
 				}else{
 					SearchRecipeHandler recipeHandler = new SearchRecipeHandler(activityContext);
 					recipeHandler.execute(new String[]{searchStr});
