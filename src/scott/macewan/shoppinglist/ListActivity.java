@@ -69,8 +69,6 @@ public class ListActivity extends ExpandableListActivity  implements OnGroupExpa
 					}
 				});
 				alertDialogBuilder.show();
-				//adapter.removeAll(context);
-				//adapter.removeAll(context);
 			}			
 		});
 	}

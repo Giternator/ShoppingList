@@ -38,22 +38,26 @@ public class AddItemActivity extends Activity {
 				//convert the category name to the proper category id
 				int categoryId = categoryId(categoryNameStr);
 				
-				//make a new item with the provided information 
-				Item item = new Item(categoryId, name);
-				
-				// add the item to the database
-				db.addItem(item);
-				
-				//create a toast message saying the item was added
-				Context context = getApplicationContext();
-				CharSequence text = name + " added to "+ categoryNameStr;
-				int duration = Toast.LENGTH_SHORT;
-				Toast toast = Toast.makeText(context, text, duration);
-				toast.show();
-				
-				//switch back to the list of items
-				Intent newScreen = new Intent(getApplicationContext(), ListActivity.class);
-				startActivity(newScreen);
+				if(name.length() > 0){
+					//make a new item with the provided information 
+					Item item = new Item(categoryId, name);
+					
+					// add the item to the database
+					db.addItem(item);
+					
+					//create a toast message saying the item was added
+					Context context = getApplicationContext();
+					CharSequence text = name + " added to "+ categoryNameStr;
+					int duration = Toast.LENGTH_SHORT;
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+					
+					//switch back to the list of items
+					Intent newScreen = new Intent(getApplicationContext(), ListActivity.class);
+					startActivity(newScreen);
+				}else{
+					Toast.makeText(getApplicationContext(), "Please provide an item name", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
         
