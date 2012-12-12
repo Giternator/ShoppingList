@@ -44,5 +44,19 @@ public class Recipe {
 	public void addIngredient(Item item){
 		ingredients.add(item);		
 	}
+	
+	public String ingredientString(){
+		StringBuilder ingredientStr = new StringBuilder();
+		boolean first = true;
+		for(Item item: ingredients){
+			if(first){
+				ingredientStr.append(item.getName());
+				first = false;
+			}else{
+				ingredientStr.append(", "+ item.getName());
+			}			
+		}
+		return ingredientStr.toString();
+	}
 
 }

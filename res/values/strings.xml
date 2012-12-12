@@ -26,5 +26,8 @@
     <string name="yummly_nod">Recipe search uses Yummly Search API</string>
     <string name="search_for_recipe">Search For a Recipe</string>
     <string name="or">OR</string>
+    <string name="recipe_title">Recipe Name</string>
+    <string name="recipe_ingredients">Ingredients</string>
+    <string name="add_recipe">Add Recipe</string>
 
 </resources>

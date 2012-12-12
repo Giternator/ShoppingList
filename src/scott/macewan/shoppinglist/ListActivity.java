@@ -7,7 +7,7 @@ import android.app.ExpandableListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -41,12 +41,11 @@ public class ListActivity extends ExpandableListActivity  implements OnGroupExpa
 		ArrayList<List<Item>> childItems = new ArrayList<List<Item>>();
 		for(Category category: categoryNames){
 			List<Item> items = db.getCategoryItems(category.getId());
-			Log.d("Child Items",Integer.toString(items.size()));
+			//Log.d("Child Items",Integer.toString(items.size()));
 			childItems.add(items);
 		}
 		CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(categoryNames, childItems);
 		adapter.setInflater((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE),	this);
-		getExpandableListView().setAdapter(adapter);
-		
+		getExpandableListView().setAdapter(adapter);		
 	}
 }

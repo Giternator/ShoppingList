@@ -79,6 +79,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 			}
 		});
 		//variables for deletion
+		final int categoryId = tempChild.get(childPosition).getCategoryId();
 		final int tempChildPosition = childPosition;
 		final int tempGroupPosition = groupPosition;
 		final List<Item> currentItems = tempChild;
@@ -95,6 +96,10 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 					public void onClick(DialogInterface dialog, int which) {
 						db.deleteItem(itemID);
 						currentItems.remove(tempChildPosition);
+						if(currentItems.size()<1 && categoryId > 6){
+							//childItems.remove(tempGroupPosition);
+							db.deleteCategory(categoryId);
+						}
 						childItems.set(tempGroupPosition, currentItems);
 						notifyDataSetChanged();
 					}

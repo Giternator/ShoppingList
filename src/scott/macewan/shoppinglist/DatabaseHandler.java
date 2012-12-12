@@ -84,6 +84,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
+	public long addRecipe(String name){		
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(KEY_NAME, name);
+		long id= db.insert(TABLE_CATEGORIES, null, values);
+		return id;
+	}
+	
 	public List<Category> getCategorys(){
 		SQLiteDatabase db = this.getReadableDatabase();
 		String selectQuery = "SELECT * FROM " + TABLE_CATEGORIES;
@@ -137,6 +145,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		Log.d("Database", "Deleteing "+Integer.toString(itemID));
 		db.delete(TABLE_ITEMS, KEY_ID + " = ?", new String[] {String.valueOf(itemID)});
+		db.close();
+	}
+	
+	//delete a category from the category database
+	public void deleteCategory(int categoryId){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(TABLE_CATEGORIES, KEY_ID + " = ?", new String[] {String.valueOf(categoryId)});
 		db.close();
 	}
 	
